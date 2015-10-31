@@ -1,0 +1,23 @@
+segmentation
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int process_size,memory_size,segment_offset,vm,pm;
+    printf("Enter the size of process:\n");
+    scanf("%d",&process_size);
+    printf("Enter the size of memory:\n");
+    scanf("%d",&memory_size);
+    printf("Enter the location of segment:\n");
+    scanf("%d",&segment_offset);
+    printf("enter virtual memory address:");
+    scanf("%d",&vm);
+    pm=segment_offset+vm;
+    if(pm>memory_size||vm>process_size)
+        printf("Illegal Address");
+    else
+        printf("The physical Address is %d",pm);
+    return 0;
+}
