@@ -1,0 +1,78 @@
+import java.util.*;
+
+class Bankers{
+
+	public static void main(String args[]){
+		Scanner t = new Scanner(System.in);
+		System.out.print("Enter the number of processes and resources: ");
+		int m = t.nextInt();
+		int n = t.nextInt();
+		System.out.print("Enter the allocation matrix: \n");
+		int allocation[][] = new int[m][n];
+		for (int i=0;i<m;i++) {
+			for (int j=0;j<n;j++ ) {
+				allocation[i][j] = t.nextInt();
+			}
+		}
+		System.out.print("Enter the maximum matrix: \n");
+		int maximum[][] = new int[m][n];
+		for (int i=0;i<m;i++) {
+			for (int j=0;j<n;j++ ) {
+				maximum[i][j] = t.nextInt();
+			}
+		}
+		System.out.print("Enter the availability matrix: ");
+		int availability[] = new int[n];
+		for (int i=0;i<n;i++) {
+			availability[i] = t.nextInt();
+		}
+		int need[][] = new int[m][n];
+		for (int i=0;i<m;i++) {
+			for (int j=0;j<n;j++) {
+				need[i][j] = maximum[i][j] - allocation[i][j];
+			}
+		}
+
+		boolean state[] = new boolean[m];
+		for (int i=0;i<m;i++) {
+			state[i] = false;
+		}
+		int count = 0;
+		while(true){
+			int j;
+			for (int i=0;i<m;i++) {
+				if(state[i]==true){
+					continue;
+				}
+				for (j=0;j<n;j++) {
+					if(need[i][j]<=availability[j])
+						continue;
+					else break;
+				}
+				if(j==n){
+					state[i] = true;
+					System.out.println("Allocated process: "+(i));
+					for (int k=0;k<n;k++) {
+						availability[k] = allocation[i][k] + availability[k];
+					}
+				}
+			}
+			count++;
+			int temp;
+			for (temp=0;temp<m;temp++) {
+				if(state[temp] == false)
+					break;
+			}
+			if(temp==m){
+				System.out.println("Safely Allocated.");
+				break;
+			}
+			if (count>m*m) {
+				System.out.println("System is in deadlock.");
+				break;
+			}
+		}
+	}
+}	
+
+
