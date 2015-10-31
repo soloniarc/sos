@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Fcfs {
+	
+	static  Scanner sc = new Scanner(System.in);
+	 
+    public static void main(String args[])
+    {
+        float t1=0,t2=0;
+       
+        System.out.println("Enter no of process");
+        int n = sc.nextInt();
+        int bt[] = new int[n];
+        for (int i=0; i<n; i++)
+        {
+            System.out.println("Enter Burst Time for Process "+(i+1));
+            bt[i] = sc.nextInt();
+        }
+        
+        int wt[]=new int[n];
+        wt[0]=0;
+        for(int i=1;i<n;i++)
+        {
+        wt[i]=bt[i-1]+wt[i-1];
+        t1+=wt[i];
+        }
+        int tat[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+        tat[i]=bt[i]+wt[i];
+        t2+=tat[i];
+        }
+        System.out.println("Process\tBurst time\tWaiting time\tTurn Around time");
+        for(int i=0;i<n;i++)
+        {
+        System.out.println("P"+(i+1)+"\t\t"+bt[i]+"\t\t"+wt[i]+"\t\t"+tat[i]);
+        }
+        System.out.println("Average Waiting time="+t1/n);
+        System.out.println("Average Turn Around time="+t2/n);
+    }
+    
+    
+}
